@@ -15,6 +15,10 @@ const APP_DESCRIPTION: &'static str = "Toolbox project for compiling notes into 
 const PANDOC_EXE_NAME: &'static str = "pandoc";
 const PANDOC_WIN_DIR_NAME: &'static str = "Pandoc";
 const PANDOC_WIN_EXE_EXT: &'static str = ".exe";
+#[cfg(windows)]
+const ENV_PATH_DELIMITER: &'static str = ";";
+#[cfg(not(windows))]
+const ENV_PATH_DELIMITER: &'static str = ":";
 
 /// Start the application.
 fn main() {
@@ -37,16 +41,8 @@ fn main() {
     // Get the current PATH environment variable, and append it to the command env path if available
     let env_path = get_env_path();
     if env_path.is_some() {
-        // Append the proper delimiter
-        // TODO: Use constants, instead of hardcoded strings
-        if cfg!(target_os = "windows") {
-            command_env_path += ";";
-        } else {
-            command_env_path += ":";
-        }
-
-        // Append the PATH variable
-        command_env_path += env_path.unwrap().as_str();
+        // Append a delimiter followed by the OS'es PATH variable
+        command_env_path += ENV_PATH_DELIMITER + env_path.unwrap().as_str();
     }
 
     // Print the PATH environment variable for the process
