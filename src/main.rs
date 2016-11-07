@@ -11,6 +11,9 @@ const APP_VERSION_CODE: i32 = 1;
 const APP_AUTHOR: &'static str = "Tim Visee <timvisee@gmail.com>";
 const APP_DESCRIPTION: &'static str = "Toolbox project for compiling notes into PDF's, slides and \
         some other formats!";
+const PANDOC_EXE_NAME: &'static str = "pandoc";
+const PANDOC_WIN_DIR_NAME: &'static str = "Pandoc";
+const PANDOC_WIN_EXE_EXT: &'static str = ".exe";
 
 /// Start the application.
 #[allow(unused_variables)]
@@ -23,6 +26,9 @@ fn main() {
 
     // Get the environment PATH variable and print it to the console
     println!("PATH: {:?}", get_env_path().unwrap());
+
+    // Find the Pandoc executable path and print it to the console
+    println!("PANDOC EXE: {:?}", find_pandoc().expect("Failed to find Pandoc path"));
 }
 
 /// Handle program arguments passed along with the command line to show things like help pages.
@@ -55,8 +61,35 @@ fn get_env_path() -> Option<String> {
     env::var("PATH").ok()
 }
 
+/// Function to find the Pandoc executable.
+fn find_pandoc() -> Option<String> {
+    // Determine what the executable name would be (with extension)
+    let mut pandoc_exe_name = PANDOC_EXE_NAME.to_string();
+    if cfg!(target_os = "windows") {
+        pandoc_exe_name.push_str(PANDOC_WIN_EXE_EXT);
+    }
+
+    // Get the list of possible Pandoc installation directories, and loop through them
+    for path in get_pandoc_program_paths() {
+        // Get a path instance
+        let path_exe = Path::new(&path).join(&pandoc_exe_name);
+
+        // Return the path as a string if the path points to an executable
+        if path_exe.is_file() {
+            return Some(path_exe.to_str().unwrap().to_string());
+        }
+    }
+
+    // Path wasn't found, return none
+    None
+}
+
+/// Get the possible installation directories for Pandoc
+fn get_pandoc_program_paths() -> Vec<String> {
+    get_program_paths(Some(PANDOC_WIN_DIR_NAME.to_string()))
+}
+
 /// Find the paths programs may be installed in on this system.
-#[allow(dead_code)]
 fn get_program_paths(dir: Option<String>) -> Vec<String> {
     // Create a vector to put the paths in
     let mut paths: Vec<String> = Vec::new();
@@ -116,7 +149,7 @@ fn get_program_paths(dir: Option<String>) -> Vec<String> {
         }
     }
 
-    // Get all paths from the PATH environment variable (crossplatform)
+    // Get all paths from the PATH environment variable (cross-platform)
     match env::var_os("PATH") {
         Some(env_paths) => {
             for path in env::split_paths(&env_paths) {
