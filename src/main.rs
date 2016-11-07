@@ -36,30 +36,28 @@ fn handle_arguments() {
 }
 
 /// Get the PATH variable from the OS environment variables.
+///
+/// # Examples
+///
+/// Fetch and print PATH variable to console:
+/// ```rust
+/// println!("PATH: {:?}", get_env_path().unwrap());
+/// ```
 fn get_env_path() -> Option<String> {
     // Iterate through the environment variables of the OS
     for (key, value) in env::vars_os() {
         // Get the OsString (key) as a string
-        let result = key.into_string();
-
-        // Make sure the conversion succeeded
-        if result.is_err() {
-            // TODO: Should we use panic here?
-            panic!("Failed to convert OsString into String");
-        }
-
-        // Get the Rust string
-        let key_str = result.unwrap();
+        let key_str = key.into_string().expect("Failed to convert OsString into String for environment key");
 
         // Continue the loop if this isn't the PATH variable
         if key_str != "PATH".to_string() {
             continue;
         }
 
-        // Return the option with the path value
-        return Some(value.into_string().unwrap());
+        // Variable found, return the option with it's value
+        return Some(value.into_string().expect("Failed to parse environment variable value to String"));
     }
 
     // Variable not found, return nothing
-    return None;
+    None
 }
