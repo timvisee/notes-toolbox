@@ -1,0 +1,8 @@
+# Configuration for Travis CI
+language: rust
+rust:
+  - "1.12.1"
+  - nightly
+matrix:
+  allow_failures:
+    - rust: nightly
