@@ -107,32 +107,23 @@ fn get_program_paths(dir: Option<String>) -> Vec<String> {
         // Determine whether we should test the default path
         let mut test_default = true;
 
-        // Get the 32-bit program files path on 64-bit systems if available
-        let prog_6432 = env::var("ProgramW6432");
-        if prog_6432.is_ok() {
-            // Unwrap the path, add it to the vector
-            paths.push(
-                Path::new(&prog_6432.unwrap())
-                    .join(&dir_str)
-                    .to_str().unwrap().to_string()
-            );
+        // Create an array of possible program files environment variables for 64-bit systems
+        let env_vars = ["ProgramW6432", "ProgramFiles(x86)"];
 
-            // Set the test_default flag to false, because we already found a path
-            test_default = false;
-        }
+        // Loop through the variables
+        for var_name in env_vars.iter() {
+            let prog_path = env::var(var_name);
+            if prog_path.is_ok() {
+                // Unwrap the path, add it to the vector
+                paths.push(
+                    Path::new(&prog_path.unwrap())
+                        .join(&dir_str)
+                        .to_str().unwrap().to_string()
+                );
 
-        // Get the 64-bit program files path on 64-bit systems if available
-        let prog_64 = env::var("ProgramFiles(x86)");
-        if prog_64.is_ok() {
-            // Unwrap the path, add it to the vector
-            paths.push(
-                Path::new(&prog_64.unwrap())
-                    .join(&dir_str)
-                    .to_str().unwrap().to_string()
-            );
-
-            // Set the test_default flag to false, because we already found a path
-            test_default = false;
+                // Set the test_default flag to false, because we already found a path
+                test_default = false;
+            }
         }
 
         // Test the default path, as no path was found yet
