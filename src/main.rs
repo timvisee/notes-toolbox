@@ -1,6 +1,7 @@
 extern crate clap;
 
 use clap::App;
+use std::process::Command;
 use std::env;
 use std::path::Path;
 
@@ -20,11 +21,56 @@ fn main() {
     // Handle command line arguments for help
     handle_arguments();
 
-    // Get the environment PATH variable and print it to the console
-    println!("PATH: {:?}", get_env_path().unwrap());
+    // Determine the executable path, directory and file name for Pandoc
+    let pandoc_exe_path = find_pandoc().expect("Failed to find Pandoc path");
+    let pandoc_exe_name = Path::new(&pandoc_exe_path).file_name().expect("failed to determine pandoc's executable name").to_str().unwrap().to_string();
+    let pandoc_dir_path = Path::new(&pandoc_exe_path).parent().expect("failed to determine pandoc's parent path").to_str().unwrap().to_string();
 
-    // Find the Pandoc executable path and print it to the console
-    println!("PANDOC EXE: {:?}", find_pandoc().expect("Failed to find Pandoc path"));
+    // Print the paths to the console for debugging
+    println!("PANDOC EXE: {:?}", &pandoc_exe_path);
+    println!("PANDOC EXE NAME: {:?}", &pandoc_exe_name);
+    println!("PANDOC DIR: {:?}", &pandoc_dir_path);
+
+    // Determine the environment variable to pass to the Pandoc process, use Pandoc's directory as base
+    let mut command_env_path = pandoc_dir_path.to_string();
+
+    // Get the current PATH environment variable, and append it to the command env path if available
+    let env_path = get_env_path();
+    if env_path.is_some() {
+        // Append the proper delimiter
+        // TODO: Use constants, instead of hardcoded strings
+        if cfg!(target_os = "windows") {
+            command_env_path += ";";
+        } else {
+            command_env_path += ":";
+        }
+
+        // Append the PATH variable
+        command_env_path += env_path.unwrap().as_str();
+    }
+
+    // Print the PATH environment variable for the process
+    println!("PANDOC CMD ENV: {:?}", &command_env_path);
+
+    // Spawn Pandoc with the proper configuration
+    println!("\nExecuting Pandoc...");
+    let output = Command::new(&pandoc_exe_name)
+        .current_dir("C:\\Users\\Tim\\IdeaProjects\\NotesTest\\TestModule\\testdir")
+        .env("PATH", command_env_path)
+        .arg("--latex-engine=lualatex")
+        .arg("-H res\\fonts.tex")
+        .arg("-r markdown_github")
+        .arg("-w latex")
+        .arg("--toc")
+        .arg("-o TO.pdf")
+        .arg("FROM.pdf")
+        .output()
+        .expect("failed to execute Pandoc");
+
+    // Print the results of the spawned process
+    println!("Pandoc process {}", output.status);
+    println!("Pandoc process stdout: {}", String::from_utf8_lossy(&output.stdout));
+    println!("Pandoc process stderr: {}", String::from_utf8_lossy(&output.stderr));
 }
 
 /// Handle program arguments passed along with the command line to show things like help pages.
