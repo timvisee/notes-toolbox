@@ -44,20 +44,6 @@ fn handle_arguments() {
 /// println!("PATH: {:?}", get_env_path().unwrap());
 /// ```
 fn get_env_path() -> Option<String> {
-    // Iterate through the environment variables of the OS
-    for (key, value) in env::vars_os() {
-        // Get the OsString (key) as a string
-        let key_str = key.into_string().expect("Failed to convert OsString into String for environment key");
-
-        // Continue the loop if this isn't the PATH variable
-        if key_str != "PATH".to_string() {
-            continue;
-        }
-
-        // Variable found, return the option with it's value
-        return Some(value.into_string().expect("Failed to parse environment variable value to String"));
-    }
-
-    // Variable not found, return nothing
-    None
+    // Get and return the PATH variable
+    env::var("PATH").ok()
 }
