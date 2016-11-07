@@ -3,9 +3,10 @@
 # NotesToolbox
 Toolbox project for compiling notes into PDF's, slides and some other formats!
 
-> _I've created this project to use myself. I usually take notes in class (college) using the Markdown format, for easy editing.
-  I use this toolbox to compile my notes into a PDF file, into an interactive slideshow or some other format using a single command.
-  These PDF's and slides make the learning process of exam material much better, as these formats are much easier to read._  
+> _I usually take notes in class (college) using the Markdown format, for easy editing.
+  I use this toolbox to compile my notes into a PDF file, an interactive slideshow or some other format using a
+  single, simple command. These PDF's and slides make the learning process of exam material much more efficient, as
+  these formats are much easier to read and learn from._  
   ~ Tim Visée
 
 Note: This is still a work in process. A featured build is currently not available.
