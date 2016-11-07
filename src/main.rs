@@ -16,13 +16,9 @@ const PANDOC_WIN_DIR_NAME: &'static str = "Pandoc";
 const PANDOC_WIN_EXE_EXT: &'static str = ".exe";
 
 /// Start the application.
-#[allow(unused_variables)]
 fn main() {
     // Handle command line arguments for help
     handle_arguments();
-
-    // Show placeholder message
-    println!("Hello, world!");
 
     // Get the environment PATH variable and print it to the console
     println!("PATH: {:?}", get_env_path().unwrap());
