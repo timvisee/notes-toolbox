@@ -1,4 +1,5 @@
 [![Build status on Travis CI](https://img.shields.io/travis/timvisee/NotesToolbox.svg)](https://travis-ci.org/timvisee/NotesToolbox)
+[![Dependency status on libraries.io](https://img.shields.io/librariesio/github/timvisee/NotesToolbox.svg)](https://libraries.io/github/timvisee/NotesToolbox)
 
 # NotesToolbox
 Toolbox project for compiling notes into PDF's, slides and some other formats!
