@@ -42,7 +42,8 @@ fn main() {
     let env_path = get_env_path();
     if env_path.is_some() {
         // Append a delimiter followed by the OS'es PATH variable
-        command_env_path += ENV_PATH_DELIMITER + env_path.unwrap().as_str();
+        command_env_path += ENV_PATH_DELIMITER;
+        command_env_path += env_path.unwrap().as_str();
     }
 
     // Print the PATH environment variable for the process
