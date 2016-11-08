@@ -134,12 +134,11 @@ fn get_program_paths(dir: Option<String>) -> Vec<String> {
     let mut paths: Vec<String> = Vec::new();
 
     // Get the directory string
-    let dir_str;
-    if dir.is_some() {
-        dir_str = dir.unwrap();
+    let dir_str = if dir.is_some() {
+        dir.unwrap();
     } else {
-        dir_str = String::from("");
-    }
+        String::from("");
+    };
 
     // Get the application paths for Windows
     if cfg!(target_os = "windows") {
