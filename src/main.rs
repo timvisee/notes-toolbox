@@ -1,7 +1,6 @@
 extern crate clap;
 
 use clap::App;
-use std::process::Command;
 use std::env;
 use std::path::Path;
 
@@ -12,12 +11,11 @@ const APP_VERSION_CODE: i32 = 1;
 const APP_AUTHOR: &'static str = "Tim Visee <timvisee@gmail.com>";
 const APP_DESCRIPTION: &'static str = "Toolbox project for compiling notes into PDF's, slides and \
         some other formats!";
-const PANDOC_EXE_NAME: &'static str = "pandoc";
-const PANDOC_WIN_DIR_NAME: &'static str = "Pandoc";
-const PANDOC_WIN_EXE_EXT: &'static str = ".exe";
 #[cfg(windows)]
+#[allow(dead_code)]
 const ENV_PATH_DELIMITER: &'static str = ";";
 #[cfg(not(windows))]
+#[allow(dead_code)]
 const ENV_PATH_DELIMITER: &'static str = ":";
 
 /// Start the application.
@@ -25,49 +23,11 @@ fn main() {
     // Handle command line arguments for help
     handle_arguments();
 
-    // Determine the executable path, directory and file name for Pandoc
-    let pandoc_exe_path = find_pandoc().expect("Failed to find Pandoc path");
-    let pandoc_exe_name = Path::new(&pandoc_exe_path).file_name().expect("failed to determine pandoc's executable name").to_str().unwrap().to_string();
-    let pandoc_dir_path = Path::new(&pandoc_exe_path).parent().expect("failed to determine pandoc's parent path").to_str().unwrap().to_string();
-
-    // Print the paths to the console for debugging
-    println!("PANDOC EXE: {:?}", &pandoc_exe_path);
-    println!("PANDOC EXE NAME: {:?}", &pandoc_exe_name);
-    println!("PANDOC DIR: {:?}", &pandoc_dir_path);
-
-    // Determine the environment variable to pass to the Pandoc process, use Pandoc's directory as base
-    let mut command_env_path = pandoc_dir_path.to_string();
-
-    // Get the current PATH environment variable, and append it to the command env path if available
-    let env_path = get_env_path();
-    if env_path.is_some() {
-        // Append a delimiter followed by the OS'es PATH variable
-        command_env_path += ENV_PATH_DELIMITER;
-        command_env_path += env_path.unwrap().as_str();
+    // Print all paths to look at when searching for a program
+    println!("Program paths:");
+    for path in get_program_paths(None) {
+        println!(" - {:?}", path);
     }
-
-    // Print the PATH environment variable for the process
-    println!("PANDOC CMD ENV: {:?}", &command_env_path);
-
-    // Spawn Pandoc with the proper configuration
-    println!("\nExecuting Pandoc...");
-    let output = Command::new(&pandoc_exe_name)
-        .current_dir("C:\\Users\\Tim\\IdeaProjects\\NotesTest\\TestModule\\testdir")
-        .env("PATH", command_env_path)
-        .arg("--latex-engine=lualatex")
-        .arg("-H res\\fonts.tex")
-        .arg("-r markdown_github")
-        .arg("-w latex")
-        .arg("--toc")
-        .arg("-o TO.pdf")
-        .arg("FROM.pdf")
-        .output()
-        .expect("failed to execute Pandoc");
-
-    // Print the results of the spawned process
-    println!("Pandoc process {}", output.status);
-    println!("Pandoc process stdout: {}", String::from_utf8_lossy(&output.stdout));
-    println!("Pandoc process stderr: {}", String::from_utf8_lossy(&output.stderr));
 }
 
 /// Handle program arguments passed along with the command line to show things like help pages.
@@ -98,34 +58,6 @@ fn handle_arguments() {
 fn get_env_path() -> Option<String> {
     // Get and return the PATH variable
     env::var("PATH").ok()
-}
-
-/// Function to find the Pandoc executable.
-fn find_pandoc() -> Option<String> {
-    // Determine what the executable name would be (with extension)
-    let mut pandoc_exe_name = PANDOC_EXE_NAME.to_string();
-    if cfg!(target_os = "windows") {
-        pandoc_exe_name.push_str(PANDOC_WIN_EXE_EXT);
-    }
-
-    // Get the list of possible Pandoc installation directories, and loop through them
-    for path in get_pandoc_program_paths() {
-        // Get a path instance
-        let path_exe = Path::new(&path).join(&pandoc_exe_name);
-
-        // Return the path as a string if the path points to an executable
-        if path_exe.is_file() {
-            return Some(path_exe.to_str().unwrap().to_string());
-        }
-    }
-
-    // Path wasn't found, return none
-    None
-}
-
-/// Get the possible installation directories for Pandoc
-fn get_pandoc_program_paths() -> Vec<String> {
-    get_program_paths(Some(PANDOC_WIN_DIR_NAME.to_string()))
 }
 
 /// Find the paths programs may be installed in on this system.
@@ -180,7 +112,7 @@ fn get_program_paths(dir: Option<String>) -> Vec<String> {
     }
 
     // Get all paths from the PATH environment variable (cross-platform)
-    match env::var_os("PATH") {
+    match get_env_path() {
         Some(env_paths) => {
             for path in env::split_paths(&env_paths) {
                 paths.push(path.to_str().unwrap().to_string());
