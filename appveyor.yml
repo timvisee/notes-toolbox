@@ -6,6 +6,8 @@ install:
   - cargo -V
   - git submodule update --init --recursive
 
+version: 0.0.1.{build}
+
 build: false
 
 test_script:
