@@ -16,6 +16,7 @@ Note: This is still a work in process. A featured build is currently not availab
 |Service|Build Status|Public Status Page|
 |---:|:---|:---|
 |Travis CI|[![Build status on Travis CI](https://img.shields.io/travis/timvisee/NotesToolbox.svg)](https://travis-ci.org/timvisee/NotesToolbox)|[View Status](https://travis-ci.org/timvisee/NotesToolbox)|
+|AppVeyor|[![Build status on AppVeyor](https://img.shields.io/appveyor/ci/timvisee/NotesToolbox.svg)](https://ci.appveyor.com/project/timvisee/notestoolbox)|[View Status](https://ci.appveyor.com/project/timvisee/notestoolbox)|
 The project is currently being built automatically using the CI services in the table above.
 
 ## About
