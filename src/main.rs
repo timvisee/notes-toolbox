@@ -26,7 +26,7 @@ fn main() {
     handle_arguments();
 
     // Load a file
-    let file = load_file_vec(Path::new("/home/timvisee/testfile"))
+    let file = load_file_vec(Path::new("./res/testfile.txt"))
         .expect("failed to load file");
 
     // Print the file length and it's contents (bytes)
