@@ -2,6 +2,8 @@ extern crate clap;
 
 use clap::App;
 use std::env;
+use std::fs::File;
+use std::io::Read;
 use std::path::Path;
 
 const APP_NAME: &'static str = "NotesToolbox";
@@ -23,11 +25,47 @@ fn main() {
     // Handle command line arguments for help
     handle_arguments();
 
-    // Print all paths to look at when searching for a program
-    println!("Program paths:");
-    for path in get_program_paths(None) {
-        println!(" - {:?}", path);
+    // Load a file
+    let file = load_file_vec(Path::new("/home/timvisee/testfile"))
+        .expect("failed to load file");
+
+    // Print the file length and it's contents (bytes)
+    println!("File length: {:?}", file.len());
+    println!("File data: {:?}", file);
+}
+
+/// Load the given file as vector, where `path` is the path the file is loaded from.
+///
+/// # Examples
+///
+/// Load a file, and print it's file lines and raw bytes:
+/// ```no_run
+/// let file = load_file(Path::new("~/myfile"))
+///         .expect("failed to load file");
+///
+/// println!("File length: {:?}", file.len());
+/// println!("File data: {:?}", file);
+/// ```
+fn load_file_vec(path: &Path) -> Result<Vec<u8>, &'static str> {
+    // Try to open the file
+    let file_result = File::open(path);
+
+    // Handle errors
+    if file_result.is_err() {
+        return Err("failed to open file");
     }
+
+    // Get the actual file, and create a new data buffer
+    let mut file = file_result.unwrap();
+    let mut data = Vec::new();
+
+    // Read the actual file
+    if file.read_to_end(&mut data).is_err() {
+        return Err("failed to read file");
+    }
+
+    // Return the data vector containing the loaded file
+    Ok(data)
 }
 
 /// Handle program arguments passed along with the command line to show things like help pages.
@@ -55,12 +93,24 @@ fn handle_arguments() {
 /// ```no_run
 /// println!("PATH: {:?}", get_env_path().unwrap());
 /// ```
+#[allow(dead_code)]
 fn get_env_path() -> Option<String> {
     // Get and return the PATH variable
     env::var("PATH").ok()
 }
 
 /// Find the paths programs may be installed in on this system.
+///
+/// # Examples
+///
+/// Get all possible program paths, output them to the console:
+/// ```
+/// println!("Program paths:");
+/// for path in get_program_paths(None) {
+///     println!(" - {:?}", path);
+/// }
+/// ```
+#[allow(dead_code)]
 fn get_program_paths(dir: Option<String>) -> Vec<String> {
     // Create a vector to put the paths in
     let mut paths: Vec<String> = Vec::new();
