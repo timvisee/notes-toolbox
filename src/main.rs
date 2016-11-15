@@ -174,3 +174,22 @@ fn get_program_paths(dir: Option<String>) -> Vec<String> {
     // Return the vector of paths
     paths
 }
+
+#[cfg(test)]
+mod tests {
+    use super::get_env_path;
+    use super::get_program_paths;
+
+    #[test]
+    fn get_env_path_test() {
+        // Should always get the environment path variable
+        assert!(get_env_path().is_some());
+    }
+
+    #[test]
+    fn get_program_paths_test() {
+        // Should always get at least one path
+        assert!(get_program_paths(None).len() > 0);
+        assert!(get_program_paths(Some("ProgramName".to_string())).len() > 0);
+    }
+}
