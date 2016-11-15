@@ -2,7 +2,7 @@ extern crate clap;
 #[cfg(test)]
 extern crate tempdir;
 
-mod fs_util;
+pub mod fs_util;
 
 use clap::App;
 use std::env;
