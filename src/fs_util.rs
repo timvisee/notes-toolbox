@@ -22,12 +22,8 @@ const REMOVE_DIR_FORCE_ATTEMPTS: u8 = 16;
 /// ```no_run
 /// remove_dir_all_force(Path::new("~/myfile");
 /// ```
+#[cfg(target_family = "windows")]
 pub fn remove_dir_all_force(path: PathBuf) -> bool {
-    // Remove directories normally non-Windows
-    if !cfg!(target_family = "windows") {
-        return fs::remove_dir_all(path).is_ok();
-    }
-
     // Keep track of the attempt count
     let mut attempt: u8 = 0;
 
@@ -47,4 +43,9 @@ pub fn remove_dir_all_force(path: PathBuf) -> bool {
 
     // We failed
     false
+}
+
+#[cfg(not(target_family = "windows"))]
+pub fn remove_dir_all_force(path: PathBuf) -> bool {
+    fs::remove_dir_all(path).is_ok()
 }
