@@ -199,7 +199,7 @@ fn get_program_paths(dir: Option<String>) -> Vec<String> {
 pub fn remove_dir_all_force(path: PathBuf) -> bool {
     // Remove directories normally non-Windows
     if !cfg!(target_family = "windows") {
-        return fs::remove_dir_all(paht).is_ok();
+        return fs::remove_dir_all(path).is_ok();
     }
 
     // Create a variable to define the number of attempts we've left
