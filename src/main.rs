@@ -181,7 +181,6 @@ fn get_program_paths(dir: Option<String>) -> Vec<String> {
 
 #[cfg(test)]
 mod tests {
-    use std::fs;
     use std::fs::File;
     use std::io::Write;
 

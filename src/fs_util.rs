@@ -49,3 +49,29 @@ pub fn remove_dir_all_force(path: PathBuf) -> bool {
 pub fn remove_dir_all_force(path: PathBuf) -> bool {
     fs::remove_dir_all(path).is_ok()
 }
+
+#[cfg(test)]
+mod tests {
+    use tempdir::TempDir;
+
+    use super::remove_dir_all_force;
+
+    #[test]
+    fn remove_dir_all_force_test() {
+        // Create a temporary directory for testing
+        let temp_dir = TempDir::new("notes_toolbox")
+            .expect("failed to create temporary notes_toolbox directory");
+
+        // Get the path of of the temporary directory
+        let path = temp_dir.into_path();
+
+        // The directory should exist
+        assert!(path.is_dir(), "temporary directory should exist");
+
+        // Remove the temporary directory and store the result
+        let removed = remove_dir_all_force(path.clone());
+
+        // The directory should be gone if the remove command succeed
+        assert!(removed != path.is_dir(), "temporary directory should be removed if the remove command succeed");
+    }
+}
