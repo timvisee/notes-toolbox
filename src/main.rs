@@ -229,9 +229,6 @@ mod tests {
         // Make sure the read vector is equal to the base vector
         assert_eq!(file_vec, base_vec, "loaded file vector is different than base vector");
 
-        // Remove the temporarily created file
-        fs::remove_file(&file_path).expect("failed to remove test file");
-
         // Remove the temporary directory
         remove_dir_all_force(temp_dir.into_path());
     }
