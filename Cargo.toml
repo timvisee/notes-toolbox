@@ -5,4 +5,6 @@ authors = ["Tim Visée <timvisee@gmail.com>"]
 
 [dependencies]
 clap = "2.18.0"
+
+[dev-dependencies]
 tempdir = "0.3"
