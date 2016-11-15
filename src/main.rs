@@ -208,7 +208,8 @@ mod tests {
     #[test]
     fn load_file_vec_test() {
         // Create a new vector
-        let base_vec = vec![60, 61, 62];
+        let base_vec = vec![72u8, 101u8, 108u8, 108u8, 111u8, 44u8, 32u8, 87u8, 111u8, 114u8, 108u8,
+                100u8, 33u8]; // Hello, World!
 
         // Create a temporary directory for testing
         let temp_dir = TempDir::new("notes_toolbox")
@@ -216,26 +217,22 @@ mod tests {
 
         // Determine the path for the test file
         let file_path = temp_dir.path().join("test_file.txt");
-        println!("Path: {:?}", file_path);
 
         // Create and write the file
         let mut file = File::create(&file_path).expect("failed to create temporary file");
-        // TODO: Write the `base_vec` values instead of the current string
-        file.write_all(b"Hello, world!").unwrap();
+        file.write_all(base_vec.as_slice()).expect("failed to write to temporary file");
         file.sync_all().unwrap();
 
         // Load the vector
-        let mut file_vec = load_file_vec(&file_path).unwrap();
-        println!("Test vec: {:?}", file_vec.len());
+        let file_vec = load_file_vec(&file_path).expect("failed to read file to vector");
 
-        // TODO: Test whether the file contents are correct
+        // Make sure the read vector is equal to the base vector
+        assert_eq!(file_vec, base_vec, "loaded file vector is different than base vector");
 
         // Remove the temporarily created file
-        fs::remove_file(&file_path).unwrap();
+        fs::remove_file(&file_path).expect("failed to remove test file");
 
         // Remove the temporary directory
         remove_dir_all_force(temp_dir.into_path());
-
-        // TODO: Remove debug messages
     }
 }
