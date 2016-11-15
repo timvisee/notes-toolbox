@@ -185,6 +185,7 @@ fn get_program_paths(dir: Option<String>) -> Vec<String> {
 /// This function forces to delete the directory, by repeatedly invoking the remove command until
 /// the file is successfully removed. The remove command is attempted a maximum number of times to
 /// prevent locking.
+/// Calls to this function on non-Windows machines automatically use `fs::remove_dir_all(...)`.
 ///
 /// True is returned if the directory was successfully removed. False is returned if the directory
 /// structure couldn't be removed, and the maximum number of remove attempts is reached.
@@ -196,6 +197,11 @@ fn get_program_paths(dir: Option<String>) -> Vec<String> {
 /// remove_dir_all_force(Path::new("~/myfile");
 /// ```
 pub fn remove_dir_all_force(path: PathBuf) -> bool {
+    // Remove directories normally non-Windows
+    if !cfg!(target_family = "windows") {
+        return fs::remove_dir_all(paht).is_ok();
+    }
+
     // Create a variable to define the number of attempts we've left
     // TODO: Don't hardcode this value in the function itself, create a constant?
     let mut attempt: u8 = 8;
