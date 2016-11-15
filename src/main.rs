@@ -1,4 +1,6 @@
 extern crate clap;
+#[cfg(test)]
+extern crate tempdir;
 
 use clap::App;
 use std::env;
@@ -177,8 +179,15 @@ fn get_program_paths(dir: Option<String>) -> Vec<String> {
 
 #[cfg(test)]
 mod tests {
+    use std::fs;
+    use std::fs::File;
+    use std::io::Write;
+
+    use tempdir::TempDir;
+
     use super::get_env_path;
     use super::get_program_paths;
+    use super::load_file_vec;
 
     #[test]
     fn get_env_path_test() {
@@ -191,5 +200,40 @@ mod tests {
         // Should always get at least one path
         assert!(get_program_paths(None).len() > 0);
         assert!(get_program_paths(Some("ProgramName".to_string())).len() > 0);
+    }
+
+    #[test]
+    fn load_file_vec_test() {
+        // Create a new vector
+        let base_vec = vec![60, 61, 62];
+
+        // Create a temporary directory for testing
+        let temp_dir = TempDir::new("notes_toolbox")
+                .expect("failed to create temporary notes_toolbox directory");
+
+        // Determine the path for the test file
+        let file_path = temp_dir.path().join("test_file.txt");
+        println!("Path: {:?}", file_path);
+
+        // Create and write the file
+        let mut file = File::create(&file_path).expect("failed to create temporary file");
+        // TODO: Write the `base_vec` values instead of the current string
+        file.write_all(b"Hello, world!").unwrap();
+        file.sync_all().unwrap();
+
+        // Load the vector
+        let mut file_vec = load_file_vec(&file_path).unwrap();
+        println!("Test vec: {:?}", file_vec.len());
+
+        // TODO: Test whether the file contents are correct
+
+        // Remove the temporarily created file
+        fs::remove_file(&file_path).unwrap();
+
+        // Close the temporary directory
+        // TODO: This breaks on windows, due to a permission error
+        temp_dir.close().expect("failed to close temporary directory");
+
+        // TODO: Remove debug messages
     }
 }
