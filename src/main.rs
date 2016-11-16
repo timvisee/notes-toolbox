@@ -2,16 +2,9 @@ extern crate clap;
 extern crate notes_toolbox;
 
 use clap::App;
+use notes_toolbox::app;
 use notes_toolbox::util::file::read_file_vec;
 use std::path::Path;
-
-const APP_NAME: &'static str = "NotesToolbox";
-const APP_VERSION_NAME: &'static str = "v0.1.0-alpha";
-#[allow(dead_code)]
-const APP_VERSION_CODE: i32 = 1;
-const APP_AUTHOR: &'static str = "Tim Visee <timvisee@gmail.com>";
-const APP_DESCRIPTION: &'static str = "Toolbox project for compiling notes into PDF's, slides and \
-        some other formats!";
 
 /// Start the application.
 fn main() {
@@ -37,9 +30,9 @@ fn main() {
 /// ```
 fn handle_arguments() {
     // Configure the application object with help information, and show matches
-    App::new(APP_NAME)
-        .version(APP_VERSION_NAME)
-        .author(APP_AUTHOR)
-        .about(APP_DESCRIPTION)
+    App::new(app::APP_NAME)
+        .version(app::APP_VERSION_NAME)
+        .author(app::APP_AUTHOR)
+        .about(app::APP_DESCRIPTION)
         .get_matches();
 }
