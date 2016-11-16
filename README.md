@@ -1,5 +1,5 @@
 [![Build status on Travis CI](https://travis-ci.org/timvisee/NotesToolbox.svg?branch=master)](https://travis-ci.org/timvisee/NotesToolbox)
-[![Build status on AppVeyor](https://ci.appveyor.com/api/projects/status/nvh77ms6dgw69cbe/branch/master?svg=true)](https://travis-ci.org/timvisee/NotesToolbox)
+[![Build status on AppVeyor](https://ci.appveyor.com/api/projects/status/nvh77ms6dgw69cbe/branch/master?svg=true)](https://ci.appveyor.com/project/timvisee/notestoolbox)
 [![Coverage status on Codecov](https://codecov.io/gh/timvisee/NotesToolbox/branch/master/graph/badge.svg)](https://codecov.io/gh/timvisee/NotesToolbox)
 [![Dependency status on libraries.io](https://img.shields.io/librariesio/github/timvisee/NotesToolbox.svg)](https://libraries.io/github/timvisee/NotesToolbox)
 
