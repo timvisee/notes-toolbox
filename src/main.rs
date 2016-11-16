@@ -12,12 +12,6 @@ const APP_VERSION_CODE: i32 = 1;
 const APP_AUTHOR: &'static str = "Tim Visee <timvisee@gmail.com>";
 const APP_DESCRIPTION: &'static str = "Toolbox project for compiling notes into PDF's, slides and \
         some other formats!";
-#[cfg(windows)]
-#[allow(dead_code)]
-const ENV_PATH_DELIMITER: &'static str = ";";
-#[cfg(not(windows))]
-#[allow(dead_code)]
-const ENV_PATH_DELIMITER: &'static str = ":";
 
 /// Start the application.
 fn main() {

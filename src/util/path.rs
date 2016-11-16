@@ -1,13 +1,6 @@
 use std::env;
 use std::path::Path;
 
-#[cfg(windows)]
-#[allow(dead_code)]
-const ENV_PATH_DELIMITER: &'static str = ";";
-#[cfg(not(windows))]
-#[allow(dead_code)]
-const ENV_PATH_DELIMITER: &'static str = ":";
-
 /// Get the PATH variable from the OS environment variables.
 ///
 /// # Examples
@@ -16,7 +9,6 @@ const ENV_PATH_DELIMITER: &'static str = ":";
 /// ```
 /// println!("PATH: {:?}", get_env_path().unwrap());
 /// ```
-#[allow(dead_code)]
 pub fn get_env_path() -> Option<String> {
     // Get and return the PATH variable
     env::var("PATH").ok()
@@ -33,7 +25,6 @@ pub fn get_env_path() -> Option<String> {
 ///     println!(" - {:?}", path);
 /// }
 /// ```
-#[allow(dead_code)]
 pub fn get_program_paths(dir: Option<String>) -> Vec<String> {
     // Create a vector to put the paths in
     let mut paths: Vec<String> = Vec::new();
