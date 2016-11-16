@@ -1,4 +1,5 @@
 [![Build status on Travis CI](https://img.shields.io/travis/timvisee/NotesToolbox.svg)](https://travis-ci.org/timvisee/NotesToolbox)
+[![Coverage status on Coveralls](https://coveralls.io/repos/github/timvisee/Dworek/badge.svg?branch=master)](https://coveralls.io/github/timvisee/Dworek?branch=master)
 [![Dependency status on libraries.io](https://img.shields.io/librariesio/github/timvisee/NotesToolbox.svg)](https://libraries.io/github/timvisee/NotesToolbox)
 
 # NotesToolbox
