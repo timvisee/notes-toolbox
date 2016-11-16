@@ -1,4 +1,5 @@
-[![Build status on Travis CI](https://img.shields.io/travis/timvisee/NotesToolbox.svg)](https://travis-ci.org/timvisee/NotesToolbox)
+[![Build status on Travis CI](https://travis-ci.org/timvisee/NotesToolbox.svg?branch=master)](https://travis-ci.org/timvisee/NotesToolbox)
+[![Build status on AppVeyor](https://ci.appveyor.com/api/projects/status/nvh77ms6dgw69cbe/branch/master?svg=true)](https://travis-ci.org/timvisee/NotesToolbox)
 [![Coverage status on Codecov](https://codecov.io/gh/timvisee/NotesToolbox/branch/master/graph/badge.svg)](https://codecov.io/gh/timvisee/NotesToolbox)
 [![Dependency status on libraries.io](https://img.shields.io/librariesio/github/timvisee/NotesToolbox.svg)](https://libraries.io/github/timvisee/NotesToolbox)
 
@@ -14,10 +15,10 @@ Toolbox project for compiling notes into PDF's, slides and some other formats!
 Note: This is still a work in process. A featured build is currently not available.
 
 ## Build
-|Platform|Build Status|Service|Public Status Page|
-|:---|:---:|:---|:---|
-|Linux, Mac OS|[![Build status on Travis CI](https://img.shields.io/travis/timvisee/NotesToolbox.svg)](https://travis-ci.org/timvisee/NotesToolbox)|Travis CI|[View Status](https://travis-ci.org/timvisee/NotesToolbox)|
-|Windows|[![Build status on AppVeyor](https://img.shields.io/appveyor/ci/timvisee/NotesToolbox.svg)](https://ci.appveyor.com/project/timvisee/notestoolbox)|AppVeyor|[View Status](https://ci.appveyor.com/project/timvisee/notestoolbox)|
+|Platform|Build Status|Service||
+|:---|:---:|:---|---|
+|Linux, Mac OS|[![Build status on Travis CI](https://travis-ci.org/timvisee/NotesToolbox.svg?branch=master)](https://travis-ci.org/timvisee/NotesToolbox)|Travis CI|[View Status](https://travis-ci.org/timvisee/NotesToolbox)|
+|Windows|[![Build status on AppVeyor](https://ci.appveyor.com/api/projects/status/nvh77ms6dgw69cbe/branch/master?svg=true)](https://ci.appveyor.com/project/timvisee/notestoolbox)|AppVeyor|[View Status](https://ci.appveyor.com/project/timvisee/notestoolbox)|
 The project is currently being built automatically using the CI services in the table above.
 
 ## About
