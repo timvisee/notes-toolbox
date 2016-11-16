@@ -20,7 +20,7 @@ const REMOVE_DIR_FORCE_ATTEMPTS: u8 = 16;
 ///
 /// Force remove a directory structure on Windows:
 /// ```no_run
-/// remove_dir_all_force(Path::new("~/myfile");
+/// remove_dir_all_force(Path::new("~/my_file");
 /// ```
 #[cfg(target_family = "windows")]
 pub fn remove_dir_all_force(path: PathBuf) -> bool {
@@ -54,7 +54,7 @@ pub fn remove_dir_all_force(path: PathBuf) -> bool {
 mod tests {
     use tempdir::TempDir;
 
-    use super::remove_dir_all_force;
+    use super::*;
 
     #[test]
     fn remove_dir_all_force_test() {

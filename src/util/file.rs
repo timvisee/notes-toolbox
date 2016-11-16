@@ -43,10 +43,10 @@ pub fn read_file_vec(path: &Path) -> Result<Vec<u8>, &'static str> {
 mod tests {
     use std::fs::File;
     use std::io::Write;
+    use tempdir::TempDir;
     use util::fs::remove_dir_all_force;
 
-    use super::tempdir::TempDir;
-    use super::read_file_vec;
+    use super::*;
 
     #[test]
     fn read_file_vec_test() {

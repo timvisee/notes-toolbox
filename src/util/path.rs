@@ -13,7 +13,7 @@ const ENV_PATH_DELIMITER: &'static str = ":";
 /// # Examples
 ///
 /// Fetch and print PATH variable to console:
-/// ```no_run
+/// ```
 /// println!("PATH: {:?}", get_env_path().unwrap());
 /// ```
 #[allow(dead_code)]
@@ -100,8 +100,7 @@ pub fn get_program_paths(dir: Option<String>) -> Vec<String> {
 
 #[cfg(test)]
 mod tests {
-    use super::get_env_path;
-    use super::get_program_paths;
+    use super::*;
 
     #[test]
     fn get_env_path_test() {
