@@ -5,10 +5,10 @@ rust:
   - stable
   - beta
   - nightly
-os:
-  - linux
-  - osx
 matrix:
+  include:
+    - os: osx
+      rust: table
   allow_failures:
     - rust: nightly
 
