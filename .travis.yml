@@ -8,7 +8,7 @@ rust:
 matrix:
   include:
     - os: osx
-      rust: table
+      rust: stable
   allow_failures:
     - rust: nightly
 
