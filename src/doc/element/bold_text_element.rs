@@ -1,4 +1,4 @@
-use doc::element::Element;
+use doc::base_element::BaseElement;
 
 const ELEMENT_TYPE_NAME: &'static str = "Bold text element";
 
@@ -15,7 +15,7 @@ impl BoldTextElement {
     }
 }
 
-impl Element for BoldTextElement {
+impl BaseElement for BoldTextElement {
     fn get_type_name() -> &'static str {
         return ELEMENT_TYPE_NAME;
     }

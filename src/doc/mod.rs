@@ -1,6 +1,6 @@
-pub mod element;
+pub mod base_element;
 pub mod doc_type;
 pub mod doc_spec;
 
-pub mod elements;
+pub mod element;
 pub mod format;
