@@ -1,0 +1,3 @@
+enum DocType {
+    Markdown
+}
