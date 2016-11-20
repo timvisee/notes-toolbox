@@ -1,2 +1,2 @@
 pub mod markdown_spec;
-pub mod markdown_writer;
+pub mod markdown_formatter;
