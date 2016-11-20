@@ -1,3 +1,3 @@
-enum DocType {
+pub enum DocType {
     Markdown
 }
