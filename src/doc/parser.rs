@@ -8,7 +8,7 @@ impl Parser {
     /// Constructor.
     ///
     /// The document type for this parser should be passed to the `doc_type` parameter.
-    fn new(doc_type: DocType) -> Parser {
+    pub fn new(doc_type: DocType) -> Parser {
         Parser {
             doc_type: doc_type
         }
