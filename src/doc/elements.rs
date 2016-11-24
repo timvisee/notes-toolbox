@@ -7,5 +7,9 @@ pub enum Elements {
     },
     BoldText {
         text: Vec<u8>
+    },
+    Header {
+        level: u8,
+        text: Vec<u8>
     }
 }
