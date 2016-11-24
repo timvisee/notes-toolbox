@@ -6,5 +6,5 @@ pub trait ElementFormatter {
     /// `element` is the element that should be formatted.
     ///
     /// A vector with bytes is returned as formatted element.
-    fn format(element: &Elements) -> Vec<u8>;
+    fn format(&self, element: &Elements) -> Vec<u8>;
 }

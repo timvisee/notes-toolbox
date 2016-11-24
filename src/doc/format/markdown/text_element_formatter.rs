@@ -4,7 +4,7 @@ use doc::element_formatter::ElementFormatter;
 struct TextElementFormatter {}
 
 impl ElementFormatter for TextElementFormatter {
-    fn format(element: &Elements) -> Vec<u8> {
+    fn format(&self, element: &Elements) -> Vec<u8> {
         match element {
             &Elements::Text {
                 ref text
