@@ -2,8 +2,10 @@ use doc::doc_type::DocType;
 use doc::doc_spec::DocSpec;
 use doc::formatter_set::FormatterSet;
 
+// Markdown specification name
 const TYPE_NAME: &'static str = "Markdown";
 
+// Markdown specification
 struct MarkdownSpec {}
 
 impl DocSpec for MarkdownSpec {

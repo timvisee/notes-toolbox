@@ -1,5 +1,9 @@
 use super::doc_type::DocType;
 
+/// Document parser.
+/// This parser parses a raw document to the document elements supported by this application.
+///
+/// The proper document type and parser should be set to ensure a given document is parsed from the correct format.
 pub struct Parser {
     doc_type: DocType
 }

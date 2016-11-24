@@ -3,6 +3,8 @@ use super::parser::Parser;
 use super::formatter::Formatter;
 use super::formatter_set::FormatterSet;
 
+/// Document type specification interface.
+/// This interface provides the document type, proper parser and formatter to use.
 pub trait DocSpec {
     /// Get the type of the document.
     fn get_name() -> &'static str;

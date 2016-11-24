@@ -1,6 +1,10 @@
 use super::doc_type::DocType;
 use super::formatter_set::FormatterSet;
 
+/// Document formatter.
+/// This formatter formats and document from it's document elements to the preferred document type.
+///
+/// The proper document type and formatter set should be set to ensure the desired formatter is used.
 pub struct Formatter {
     doc_type: DocType,
     formatter_set: FormatterSet
