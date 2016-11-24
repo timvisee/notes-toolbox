@@ -1,7 +1,6 @@
-use std::cmp::Eq;
 use std::hash::Hash;
 
-#[derive(Hash, PartialEq)]
+#[derive(Hash, Eq, PartialEq)]
 pub enum Elements {
     Text {
         text: Vec<u8>
@@ -10,5 +9,3 @@ pub enum Elements {
         text: Vec<u8>
     }
 }
-
-impl Eq for Elements {}
