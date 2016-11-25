@@ -34,3 +34,30 @@ impl ElementFormatter for BoldTextElementFormatter {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use doc::format::markdown::bold_text_element_formatter::BoldTextElementFormatter;
+    use doc::element_formatter::ElementFormatter;
+    use doc::elements::Elements;
+
+    #[test]
+    fn format_test() {
+        // Define some sample data
+        const TEST_TEXT: &'static str = "Bold text";
+
+        // Create a bold text element
+        let bold_element = Elements::BoldText {
+            text: TEST_TEXT.as_bytes().to_vec()
+        };
+
+        // Create a bold text formatter
+        let formatter = BoldTextElementFormatter::new();
+
+        // Format the element
+        let result = formatter.format(&bold_element);
+
+        // Print the vec to the console for testing
+        println!("TEST: VEC: {:?}", result);
+    }
+}
