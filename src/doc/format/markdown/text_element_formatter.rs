@@ -2,7 +2,14 @@ use doc::elements::Elements;
 use doc::element_formatter::ElementFormatter;
 
 // Text element formatter in Markdown
-struct TextElementFormatter {}
+pub struct TextElementFormatter {}
+
+impl TextElementFormatter {
+    /// Constructor.
+    fn new() -> TextElementFormatter {
+        TextElementFormatter {}
+    }
+}
 
 impl ElementFormatter for TextElementFormatter {
     fn format(&self, element: &Elements) -> Vec<u8> {

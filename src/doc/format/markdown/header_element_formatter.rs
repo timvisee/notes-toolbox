@@ -7,7 +7,14 @@ const MARKDOWN_HEADER_IDENTIFIER: &'static str = "#";
 const MARKDOWN_NEWLINE: &'static str = "\n";
 
 /// Formatter for header text in Markdown
-struct HeaderElementFormatter {}
+pub struct HeaderElementFormatter {}
+
+impl HeaderElementFormatter {
+    /// Constructor.
+    fn new() -> HeaderElementFormatter {
+        HeaderElementFormatter {}
+    }
+}
 
 impl ElementFormatter for HeaderElementFormatter {
     fn format(&self, element: &Elements) -> Vec<u8> {

@@ -5,7 +5,14 @@ use doc::element_formatter::ElementFormatter;
 const MARKDOWN_BOLD_IDENTIFIER: &'static str = "*";
 
 /// Formatter for bold text in Markdown
-struct BoldTextElementFormatter {}
+pub struct BoldTextElementFormatter {}
+
+impl BoldTextElementFormatter {
+    /// Constructor.
+    fn new() -> BoldTextElementFormatter {
+        BoldTextElementFormatter {}
+    }
+}
 
 impl ElementFormatter for BoldTextElementFormatter {
     fn format(&self, element: &Elements) -> Vec<u8> {
